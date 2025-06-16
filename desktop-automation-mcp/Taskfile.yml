@@ -1,0 +1,57 @@
+version: '3'
+
+vars:
+  APP_NAME: desktop-automation-mcp
+  MAIN_PATH: ./cmd/mcp-server
+  BUILD_DIR: ./bin
+
+tasks:
+  build:
+    desc: Build the MCP server
+    cmds:
+      - mkdir -p {{.BUILD_DIR}}
+      - go build -o {{.BUILD_DIR}}/{{.APP_NAME}} {{.MAIN_PATH}}
+    sources:
+      - "**/*.go"
+      - go.mod
+      - go.sum
+    generates:
+      - "{{.BUILD_DIR}}/{{.APP_NAME}}"
+
+  run:
+    desc: Run the MCP server in STDIO mode
+    deps: [build]
+    cmds:
+      - "{{.BUILD_DIR}}/{{.APP_NAME}}"
+
+  clean:
+    desc: Clean build artifacts
+    cmds:
+      - rm -rf {{.BUILD_DIR}}
+      - go clean
+
+  deps:
+    desc: Download and tidy dependencies
+    cmds:
+      - go mod download
+      - go mod tidy
+
+  test:
+    desc: Run tests
+    cmds:
+      - go test -v ./...
+
+  lint:
+    desc: Run linting tools
+    cmds:
+      - go vet ./...
+      - gofmt -l .
+
+  dev:
+    desc: Run in development mode (auto-restart on changes)
+    deps: [build]
+    cmds:
+      - "{{.BUILD_DIR}}/{{.APP_NAME}}"
+    watch: true
+    sources:
+      - "**/*.go"
