@@ -59,31 +59,31 @@ func NewRootCmd() *cobra.Command {
 //	return clickCmd
 //}
 
-// newTypeCmd creates the type command
-func newTypeCmd() *cobra.Command {
-	typeCmd := &cobra.Command{
-		Use:   "type \"text\"",
-		Short: "Type text at current cursor position",
-		Long:  `Simulate keyboard typing of the specified text at the current cursor position.`,
-		Example: `  # Type "Hello, World!"
-  desktop-automation type "Hello, World!"`,
-		Args: cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			text := args[0]
-
-			// Implementation using automation package
-			keyboard := automation.NewKeyboard()
-			if err := keyboard.Type(text); err != nil {
-				return fmt.Errorf("failed to type text: %w", err)
-			}
-
-			fmt.Printf("Typed: %s\n", text)
-			return nil
-		},
-	}
-
-	return typeCmd
-}
+//// newTypeCmd creates the type command
+//func newTypeCmd() *cobra.Command {
+//	typeCmd := &cobra.Command{
+//		Use:   "type \"text\"",
+//		Short: "Type text at current cursor position",
+//		Long:  `Simulate keyboard typing of the specified text at the current cursor position.`,
+//		Example: `  # Type "Hello, World!"
+//  desktop-automation type "Hello, World!"`,
+//		Args: cobra.ExactArgs(1),
+//		RunE: func(cmd *cobra.Command, args []string) error {
+//			text := args[0]
+//
+//			// Implementation using automation package
+//			keyboard := automation.NewKeyboard()
+//			if err := keyboard.Type(text); err != nil {
+//				return fmt.Errorf("failed to type text: %w", err)
+//			}
+//
+//			fmt.Printf("Typed: %s\n", text)
+//			return nil
+//		},
+//	}
+//
+//	return typeCmd
+//}
 
 // newMoveCmd creates the move command
 func newMoveCmd() *cobra.Command {
