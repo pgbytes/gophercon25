@@ -24,40 +24,40 @@ func NewRootCmd() *cobra.Command {
 	return rootCmd
 }
 
-// newClickCmd creates the click command
-func newClickCmd() *cobra.Command {
-	clickCmd := &cobra.Command{
-		Use:   "click x y",
-		Short: "Click at a specific screen coordinate",
-		Long:  `Click mouse at the specified X and Y coordinates on your screen.`,
-		Example: `  # Click at position (100, 200)
-  desktop-automation click 100 200`,
-		Args: cobra.ExactArgs(2),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			var x, y int
-			if _, err := fmt.Sscanf(args[0], "%d", &x); err != nil {
-				return fmt.Errorf("invalid x coordinate: %s", args[0])
-			}
-			if _, err := fmt.Sscanf(args[1], "%d", &y); err != nil {
-				return fmt.Errorf("invalid y coordinate: %s", args[1])
-			}
-
-			// Implementation using automation package
-			mouse := automation.NewMouse()
-			if err := mouse.MoveTo(x, y); err != nil {
-				return fmt.Errorf("failed to move mouse: %w", err)
-			}
-			if err := mouse.Click(); err != nil {
-				return fmt.Errorf("failed to click: %w", err)
-			}
-
-			fmt.Printf("Clicked at coordinates (%d, %d)\n", x, y)
-			return nil
-		},
-	}
-
-	return clickCmd
-}
+//// newClickCmd creates the click command
+//func newClickCmd() *cobra.Command {
+//	clickCmd := &cobra.Command{
+//		Use:   "click x y",
+//		Short: "Click at a specific screen coordinate",
+//		Long:  `Click mouse at the specified X and Y coordinates on your screen.`,
+//		Example: `  # Click at position (100, 200)
+//  desktop-automation click 100 200`,
+//		Args: cobra.ExactArgs(2),
+//		RunE: func(cmd *cobra.Command, args []string) error {
+//			var x, y int
+//			if _, err := fmt.Sscanf(args[0], "%d", &x); err != nil {
+//				return fmt.Errorf("invalid x coordinate: %s", args[0])
+//			}
+//			if _, err := fmt.Sscanf(args[1], "%d", &y); err != nil {
+//				return fmt.Errorf("invalid y coordinate: %s", args[1])
+//			}
+//
+//			// Implementation using automation package
+//			mouse := automation.NewMouse()
+//			if err := mouse.MoveTo(x, y); err != nil {
+//				return fmt.Errorf("failed to move mouse: %w", err)
+//			}
+//			if err := mouse.Click(); err != nil {
+//				return fmt.Errorf("failed to click: %w", err)
+//			}
+//
+//			fmt.Printf("Clicked at coordinates (%d, %d)\n", x, y)
+//			return nil
+//		},
+//	}
+//
+//	return clickCmd
+//}
 
 // newTypeCmd creates the type command
 func newTypeCmd() *cobra.Command {
